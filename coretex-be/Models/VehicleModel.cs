@@ -6,7 +6,7 @@ namespace coretex_be.Models
     public class VehicleModel
     {
         [BsonElement("Id")]
-        public string Id { get; set; }
+        public string _id { get; set; }
         [BsonElement("NumberPlate")]
         public string NumberPlate { get; set; }
         [BsonElement("Speed")]

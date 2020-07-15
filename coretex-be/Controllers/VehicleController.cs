@@ -24,7 +24,7 @@ namespace coretex_be.Controllers
         {
             foreach(var vehicle in Get())
             {
-                if (vehicle.Id == id)
+                if (vehicle._id == id)
                 {
                     return vehicle;
                 }
@@ -33,24 +33,24 @@ namespace coretex_be.Controllers
         }
 
         // POST api/<controller>
-        public void Post([FromBody]string id)
+        public void Post([FromBody]string data)
         {
-            VehicleModel respObj = dbContext.DeserializeString<VehicleModel>(id);
-            respObj.Id = Guid.NewGuid().ToString();
+            VehicleModel respObj = dbContext.DeserializeString<VehicleModel>(data);
+            respObj._id = Guid.NewGuid().ToString();
             dbContext.Post(tableName, respObj);
         }
 
         // PUT api/<controller>/5
-        public void Put([FromBody]string id)
+        public void Put([FromBody]string data)
         {
-            VehicleModel respObj = dbContext.DeserializeString<VehicleModel>(id);
-            dbContext.mongoDatabase.GetCollection<VehicleModel>(tableName).ReplaceOne(vehicle => vehicle.Id == respObj.Id, respObj);
+            VehicleModel respObj = dbContext.DeserializeString<VehicleModel>(data);
+            dbContext.mongoDatabase.GetCollection<VehicleModel>(tableName).ReplaceOne(vehicle => vehicle._id == respObj._id, respObj);
         }
 
         // DELETE api/<controller>/5
         public void Delete(string id)
         {
-            dbContext.mongoDatabase.GetCollection<VehicleModel>(tableName).DeleteOne(vehicle => vehicle.Id == id);
+            dbContext.mongoDatabase.GetCollection<VehicleModel>(tableName).DeleteOne(vehicle => vehicle._id == id);
         }
     }
 }
